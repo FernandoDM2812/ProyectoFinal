@@ -3,9 +3,11 @@ package ProyectoFinalPruebas;
 import java.util.Scanner;
 
 public class Humano extends Jugador{
-
+	int puntos;
+	
 	public Humano( String nombre, int puntos) {
-		super(nombre, puntos);
+		super(nombre);
+		puntos= this.puntos;
 	}
 	static Scanner entrada = new Scanner(System.in);
 	
