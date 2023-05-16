@@ -2,6 +2,7 @@ package ProyectoFinalPruebas;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,25 +26,51 @@ public abstract class Jugador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	private void responderMates() {
+	private boolean responderMates() {
+		return false;
 	}
-	private void responderLengua() {
+	private boolean responderLengua() {
+		return false;
 	}
-	private void responderIngles() {
+	private boolean responderIngles() {
+		return false;
 	}
 
-public static  void verJugadores() throws IOException {
-	BufferedReader leer = new BufferedReader(new FileReader(file));
-	String line;
-	List<String> lines = new ArrayList<String>();
-
-	while((line = leer.readLine()) != null) {
-	    lines.add(line);
-	}
-	leer.close();
+	public static  void verJugadores() throws IOException {
+		BufferedReader leer = new BufferedReader(new FileReader(file));
+		String line;
+		List<String> lines = new ArrayList<String>();
 	
-	for(int i=0;i<lines.size();i++) {
-		System.out.println(lines.get(i));
+		while((line = leer.readLine()) != null) {
+		    lines.add(line);
 		}
+		leer.close();
+		
+		for(int i=0;i<lines.size();i++) {
+			System.out.println(lines.get(i));
+			}
+		}
+	
+	
+	public static boolean comprobarJugador(String jugador) throws IOException {
+		boolean bool = false;
+		
+		BufferedReader leer = new BufferedReader(new FileReader(file));
+		String line;
+		List<String> lines = new ArrayList<String>();
+
+	
+		while((line = leer.readLine()) != null) {
+			if (jugador.equals(line)) {
+				bool = true;
+				break;
+			}else {
+				bool = false;
+			}
+			
+		}
+		leer.close();
+		return bool;
+		
 	}
 }

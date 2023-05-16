@@ -8,9 +8,7 @@ public class Principal {
 	
 	
 	public static void main(String[]args) throws IOException {	
-		
-		Jugador.verJugadores();
-		
+				
 		boolean opcionCorrecta=false;
 		Scanner entrada = new Scanner(System.in);
 		
@@ -50,15 +48,16 @@ public class Principal {
 	}
 	
 	 
-	public static void jugarPartida(){
+	public static void jugarPartida() throws IOException{
 		Scanner entrada = new Scanner(System.in);
 		boolean partidaIniziada = false;
 		boolean jugadores = false;
+		boolean seleccion = false;
 		int numJugadores;
 		
 		
-		while(partidaIniziada) {
-			while(jugadores) {
+		while(partidaIniziada==false) {
+			while(jugadores==false) {
 				System.out.println("------------------------------------------");
 				System.out.println("-     Seleccione Numero de Jugadores     -");
 				System.out.println("------------------------------------------");
@@ -69,12 +68,23 @@ public class Principal {
 				}else {
 					System.out.println("Seleccione un numero de jugadores entre 0 y 4");
 				}
+				for(int i=0;i<numJugadores;i++) {
+					System.out.println("Seleccione Jugador");
+					String jugador = entrada.next();
+					boolean verdad = Jugador.comprobarJugador(jugador);
+					if(verdad==false) {
+						System.out.println("Jugador no existente");
+						i--;
+					}else {
+						Humano jugador1 = new Humano(jugador, 0);
+					}
+				}
 			}
 		}
 		
 	}
 	
-	  public static void preguntaMates(String[] args) {
+	  public static void preguntaMates() {
 		    int numOperandos = new Random().nextInt(5) + 4; // número aleatorio de 4 a 8 operandos
 		    StringBuilder sb = new StringBuilder();
 		    

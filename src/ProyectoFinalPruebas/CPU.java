@@ -1,5 +1,7 @@
 package ProyectoFinalPruebas;
 
+import java.util.Random;
+
 public class CPU extends Jugador{
 	int puntos;
 
@@ -7,10 +9,18 @@ public class CPU extends Jugador{
 		super(nombre);
 		puntos = this.puntos;
 	}
-	private void responderMates() {
+	private boolean responderMates() {
+		return true;
 	}
-	private void responderLengua() {
+	private boolean responderLengua() {
+		return false;
 	}
-	private void responderIngles() {
+	private boolean responderIngles() {
+		int numAleatorio = (new Random().nextInt(4)+1);
+		if(numAleatorio==1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
