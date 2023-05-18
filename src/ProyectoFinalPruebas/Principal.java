@@ -2,42 +2,40 @@ package ProyectoFinalPruebas;
 
 import java.util.Scanner;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Principal {
 	
 	
 	public static void main(String[]args) throws IOException {	
-				
-		boolean opcionCorrecta=false;
 		Scanner entrada = new Scanner(System.in);
+		
+		boolean opcionCorrecta=false;
 		
 		System.out.println("------------------------------------------");
 		System.out.println("-         Seleccione una opcion          -");
 		System.out.println("-                                        -");
-		System.out.println("-    -Jugar Partida      -Ranking        -");
+		System.out.println("-       -Jugar           -Ranking        -");
 		System.out.println("-      -Historico       -Jugadores       -");
 		System.out.println("-                -Salir                  -");
 		System.out.println("-                                        -");
 		System.out.println("------------------------------------------");
 		
 		
-		while(opcionCorrecta == false) {
-			String respuesta = entrada.next();
-			respuesta.equalsIgnoreCase(respuesta);
-			if(respuesta.equals("Jugar")) {
+		while(!opcionCorrecta) {
+			String respuesta = entrada.nextLine();
+			respuesta=respuesta.toLowerCase();
+			if(respuesta.equals("jugar")) {
 				jugarPartida();
 				opcionCorrecta = true;
-			}else if (respuesta.equals("Ranking")) {
+			}else if (respuesta.equals("ranking")) {
 				System.out.println("2");
-				opcionCorrecta = true;
-			}else if (respuesta.equals("Historico")) {
+			}else if (respuesta.equals("historico")) {
 				System.out.println("3");
-				opcionCorrecta = true;
-			}else if (respuesta.equals("Jugadores")) {
-				System.out.println("4");
-				opcionCorrecta = true;
-			}else if(respuesta.equals("Salir")) {
+			}else if (respuesta.equals("jugadores")) {
+				menuJugadores();
+			}else if(respuesta.equals("salir")) {
 				System.out.println("5");
 				opcionCorrecta = true;
 			}else {
@@ -50,14 +48,25 @@ public class Principal {
 	 
 	public static void jugarPartida() throws IOException{
 		Scanner entrada = new Scanner(System.in);
+		ArrayList<Object> listaJugador = new ArrayList<>();
 		boolean partidaIniziada = false;
 		boolean jugadores = false;
-		boolean seleccion = false;
+		boolean preguntas = false;
+		int partida;
 		int numJugadores;
 		
+		ArrayList<Object> listaCPU = new ArrayList<>();
+		CPU cpu1 = new CPU("CPU1", 0);
+		CPU cpu2 = new CPU("CPU2", 0);
+		CPU cpu3 = new CPU("CPU3", 0);
+		CPU cpu4 = new CPU("CPU4", 0);
+		listaCPU.add(cpu1);
+		listaCPU.add(cpu2);
+		listaCPU.add(cpu3);
+		listaCPU.add(cpu4);
 		
-		while(partidaIniziada==false) {
-			while(jugadores==false) {
+		while(!partidaIniziada) {
+			while(!jugadores) {
 				System.out.println("------------------------------------------");
 				System.out.println("-     Seleccione Numero de Jugadores     -");
 				System.out.println("------------------------------------------");
@@ -72,16 +81,65 @@ public class Principal {
 					System.out.println("Seleccione Jugador");
 					String jugador = entrada.next();
 					boolean verdad = Jugador.comprobarJugador(jugador);
-					if(verdad==false) {
+					if(!verdad) {
 						System.out.println("Jugador no existente");
 						i--;
 					}else {
 						Humano jugador1 = new Humano(jugador, 0);
+						listaJugador.add(jugador1);
 					}
 				}
+			while(numJugadores<4) {
+				int indice = 3 - numJugadores;
+				CPU jugadorCPU1 = (CPU) listaCPU.get(indice);
+				listaJugador.add(jugadorCPU1);
+				numJugadores++;
+			}
+			System.out.println("Jugadores que van a Jugar la Partida:");
+			for(int i=0;i<4;i++) {
+			Jugador player = (Jugador) listaJugador.get(i);
+				String nombre = player.getNombre();
+				System.out.println(nombre);
+			
 			}
 		}
-		
+			while(!preguntas) {
+				Scanner sc=new Scanner(System.in);
+				System.out.println("------------------------------------------");
+				System.out.println("-   Seleccione Duracion De La Partida    -");
+				System.out.println("******************************************");
+				System.out.println("********Partida Rapida -3 Rondas**********");
+				System.out.println("******************************************");
+				System.out.println("********Partida Corta  -5 Rondas**********");
+				System.out.println("******************************************");
+				System.out.println("********Partida Normal -10 Rondas*********");
+				System.out.println("******************************************");
+				System.out.println("********Partida Normal -20 Rondas*********");
+				System.out.println("******************************************");
+				System.out.println("------------------------------------------");
+				
+				String duracion=sc.nextLine();
+				duracion=duracion.toLowerCase();
+				if(duracion.equals("3")||duracion.equals("rapida")) {
+					partida=3;
+					preguntas=true;					
+				}else if(duracion.equals("5")||duracion.equals("corta")){
+					partida=5;
+					preguntas=true;
+				}else if(duracion.equals("10")||duracion.equals("normal")){
+					partida=10;
+					preguntas=true;
+				}else if(duracion.equals("20")||duracion.equals("larga")){
+					partida=20;
+					preguntas=true;
+				}else {
+					System.out.println("Introduzca una duracion permitida");
+				}sc.close();
+			}
+		System.out.println("**************************************************************");	
+		System.out.println("*********************Inicio De La Partida*********************");	
+		System.out.println("**************************************************************");			
+		}
 	}
 	
 	  public static void preguntaMates() {
@@ -97,7 +155,7 @@ public class Principal {
 		    }
 		    
 		    String operacion = sb.toString();
-		    System.out.println("La operación matemática generada es: " + operacion);
+		    System.out.println("La pregunta es: " + operacion);
 		  }
 		  
 		  private static char generarOperadorAleatorio() {
@@ -110,5 +168,41 @@ public class Principal {
 		      default:
 		        return '*';
 		    }
+		  }
+		  
+		  public static void menuJugadores() throws IOException   {
+			  Scanner entrada = new Scanner(System.in);
+			  boolean menu=false;
+			  String respuesta;
+			  System.out.println("------------------------------------------");
+				System.out.println("-            Menu Jugadores              -");
+				System.out.println("-                                        -");
+				System.out.println("-            -Ver Jugadores              -");
+				System.out.println("-                                        -");
+				System.out.println("-            -Añadir Jugador             -");
+				System.out.println("-                                        -");				
+				System.out.println("-      	     -Eliminar Jugador           -");
+				System.out.println("-                                        -");
+				System.out.println("-                -Salir                  -");
+				System.out.println("-                                        -");
+				System.out.println("------------------------------------------");
+				
+				
+				while(!menu) {				    
+					
+					respuesta = entrada.nextLine();
+				    respuesta = respuesta.toLowerCase();
+					if(respuesta.equals("ver jugadores")) {
+						Jugador.verJugadores();
+					}else if (respuesta.equals("añadir jugador")) {
+						System.out.println("Que Jugador Desea Añadir?");
+					}else if (respuesta.equals("eliminar jugador")) {
+						System.out.println("Que Jugador Desea Eliminar?");
+					}else if(respuesta.equals("salir")) {
+						menu = true;
+					}else {
+						System.out.println("Por favor seleccione una opcion correcta");
+					}
+				}	
 		  }
 }
