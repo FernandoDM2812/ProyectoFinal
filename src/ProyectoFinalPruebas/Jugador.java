@@ -26,15 +26,9 @@ public abstract class Jugador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	private boolean responderMates() {
-		return false;
-	}
-	private boolean responderLengua() {
-		return false;
-	}
-	private boolean responderIngles() {
-		return false;
-	}
+	abstract boolean responderMates();
+	abstract boolean responderLengua();
+	abstract boolean responderIngles();
 
 	public static  void verJugadores() throws IOException {
 		BufferedReader leer = new BufferedReader(new FileReader(file));

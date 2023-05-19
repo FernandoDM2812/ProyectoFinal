@@ -13,11 +13,16 @@ public class Principal {
 		
 		boolean opcionCorrecta=false;
 		
+		System.out.println("Bienvenido a...");
+		System.out.println("¿Eres mas Listo que una Maquina? (0o0)");
+		
 		System.out.println("------------------------------------------");
 		System.out.println("-         Seleccione una opcion          -");
 		System.out.println("-                                        -");
 		System.out.println("-       -Jugar           -Ranking        -");
+		System.out.println("-                                        -");
 		System.out.println("-      -Historico       -Jugadores       -");
+		System.out.println("-                                        -");
 		System.out.println("-                -Salir                  -");
 		System.out.println("-                                        -");
 		System.out.println("------------------------------------------");
@@ -138,37 +143,11 @@ public class Principal {
 			}
 		System.out.println("**************************************************************");	
 		System.out.println("*********************Inicio De La Partida*********************");	
-		System.out.println("**************************************************************");			
+		System.out.println("**************************************************************");
+		partidaIniziada=true;
 		}
 	}
 	
-	  public static void preguntaMates() {
-		    int numOperandos = new Random().nextInt(5) + 4; // número aleatorio de 4 a 8 operandos
-		    StringBuilder sb = new StringBuilder();
-		    
-		    // generamos los operandos aleatorios
-		    for (int i = 0; i < numOperandos; i++) {
-		      sb.append(new Random().nextInt(11) + 2); // valores aleatorios de 2 a 12
-		      if (i != numOperandos - 1) { // si no es el último operando, añadimos un operador
-		        sb.append(generarOperadorAleatorio());
-		      }
-		    }
-		    
-		    String operacion = sb.toString();
-		    System.out.println("La pregunta es: " + operacion);
-		  }
-		  
-		  private static char generarOperadorAleatorio() {
-		    int numAleatorio = new Random().nextInt(3);
-		    switch (numAleatorio) {
-		      case 0:
-		        return '+';
-		      case 1:
-		        return '-';
-		      default:
-		        return '*';
-		    }
-		  }
 		  
 		  public static void menuJugadores() throws IOException   {
 			  Scanner entrada = new Scanner(System.in);

@@ -11,13 +11,16 @@ public class Humano extends Jugador{
 	}
 	static Scanner entrada = new Scanner(System.in);
 	
-	private void responderMates() {
+	protected boolean responderMates() {
 		respuesta = entrada.next();
+		return false;
 	}
-	private void responderLengua() {
+	protected boolean responderLengua() {
 		respuesta = entrada.next();
+		return false;
 	}
-	private void responderIngles() {
+	protected boolean responderIngles() {
 		respuesta = entrada.next();
+		return false;
 	}
 }

@@ -9,13 +9,13 @@ public class CPU extends Jugador{
 		super(nombre);
 		puntos = this.puntos;
 	}
-	private boolean responderMates() {
+	protected boolean responderMates() {
 		return true;
 	}
-	private boolean responderLengua() {
+	protected boolean responderLengua() {
 		return false;
 	}
-	private boolean responderIngles() {
+	protected boolean responderIngles() {
 		int numAleatorio = (new Random().nextInt(4)+1);
 		if(numAleatorio==1) {
 			return true;
