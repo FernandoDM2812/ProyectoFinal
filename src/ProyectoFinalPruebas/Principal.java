@@ -8,7 +8,8 @@ import java.util.Random;
 public class Principal {
 	
 	
-	public static void main(String[]args) throws IOException {	
+	public static void main(String[]args) throws IOException {
+		Preguntas.preguntaLengua();
 		Scanner entrada = new Scanner(System.in);
 		
 		boolean opcionCorrecta=false;
@@ -16,19 +17,20 @@ public class Principal {
 		System.out.println("Bienvenido a...");
 		System.out.println("¿Eres mas Listo que una Maquina? (0o0)");
 		
-		System.out.println("------------------------------------------");
-		System.out.println("-         Seleccione una opcion          -");
-		System.out.println("-                                        -");
-		System.out.println("-       -Jugar           -Ranking        -");
-		System.out.println("-                                        -");
-		System.out.println("-      -Historico       -Jugadores       -");
-		System.out.println("-                                        -");
-		System.out.println("-                -Salir                  -");
-		System.out.println("-                                        -");
-		System.out.println("------------------------------------------");
-		
 		
 		while(!opcionCorrecta) {
+			
+			System.out.println("------------------------------------------");
+			System.out.println("-         Seleccione una opcion          -");
+			System.out.println("-                                        -");
+			System.out.println("-       -Jugar           -Ranking        -");
+			System.out.println("-                                        -");
+			System.out.println("-      -Historico       -Jugadores       -");
+			System.out.println("-                                        -");
+			System.out.println("-                -Salir                  -");
+			System.out.println("-                                        -");
+			System.out.println("------------------------------------------");
+			
 			String respuesta = entrada.nextLine();
 			respuesta=respuesta.toLowerCase();
 			if(respuesta.equals("jugar")) {
@@ -41,13 +43,13 @@ public class Principal {
 			}else if (respuesta.equals("jugadores")) {
 				menuJugadores();
 			}else if(respuesta.equals("salir")) {
-				System.out.println("5");
+				System.out.println("Hasta Luego Vuelva Pronto");
 				opcionCorrecta = true;
 			}else {
 				System.out.println("Por favor seleccione una opcion correcta");
 			}
 		}
-	
+	entrada .close();
 	}
 	
 	 
@@ -113,6 +115,8 @@ public class Principal {
 				System.out.println("------------------------------------------");
 				System.out.println("-   Seleccione Duracion De La Partida    -");
 				System.out.println("******************************************");
+				System.out.println("**************Entrenamiento***************");
+				System.out.println("******************************************");
 				System.out.println("********Partida Rapida -3 Rondas**********");
 				System.out.println("******************************************");
 				System.out.println("********Partida Corta  -5 Rondas**********");
@@ -125,6 +129,10 @@ public class Principal {
 				
 				String duracion=sc.nextLine();
 				duracion=duracion.toLowerCase();
+				if(duracion.equals("entrenamiento")||duracion.equals("partida entrenamiento")) {
+					partida=0;
+					preguntas=true;
+				}
 				if(duracion.equals("3")||duracion.equals("rapida")) {
 					partida=3;
 					preguntas=true;					
@@ -152,36 +160,38 @@ public class Principal {
 		  public static void menuJugadores() throws IOException   {
 			  Scanner entrada = new Scanner(System.in);
 			  boolean menu=false;
-			  String respuesta;
-			  System.out.println("------------------------------------------");
-				System.out.println("-            Menu Jugadores              -");
-				System.out.println("-                                        -");
-				System.out.println("-            -Ver Jugadores              -");
-				System.out.println("-                                        -");
-				System.out.println("-            -Añadir Jugador             -");
-				System.out.println("-                                        -");				
-				System.out.println("-      	     -Eliminar Jugador           -");
-				System.out.println("-                                        -");
-				System.out.println("-                -Salir                  -");
-				System.out.println("-                                        -");
-				System.out.println("------------------------------------------");
-				
-				
-				while(!menu) {				    
+			  String respuesta;				
+				while(!menu) {
+					  String opcion;
+					  respuesta=null;
+					  System.out.println("------------------------------------------");
+						System.out.println("-            Menu Jugadores              -");
+						System.out.println("-                                        -");
+						System.out.println("-            -Ver Jugadores              -");
+						System.out.println("-                                        -");
+						System.out.println("-            -Añadir Jugador             -");
+						System.out.println("-                                        -");				
+						System.out.println("-      	     -Eliminar Jugador           -");
+						System.out.println("-                                        -");
+						System.out.println("-                -Salir                  -");
+						System.out.println("-                                        -");
+						System.out.println("------------------------------------------");
 					
-					respuesta = entrada.nextLine();
-				    respuesta = respuesta.toLowerCase();
+					respuesta = entrada.nextLine().toLowerCase();
+				    
 					if(respuesta.equals("ver jugadores")) {
 						Jugador.verJugadores();
 					}else if (respuesta.equals("añadir jugador")) {
 						System.out.println("Que Jugador Desea Añadir?");
+			            opcion = entrada.nextLine();
+						Jugador.añadirJugador(opcion);
 					}else if (respuesta.equals("eliminar jugador")) {
 						System.out.println("Que Jugador Desea Eliminar?");
+			            opcion = entrada.nextLine();
+						Jugador.borrarJugador(opcion);
 					}else if(respuesta.equals("salir")) {
 						menu = true;
-					}else {
-						System.out.println("Por favor seleccione una opcion correcta");
 					}
-				}	
+				}
 		  }
 }

@@ -6,20 +6,21 @@ public class Humano extends Jugador{
 	int puntos;
 	
 	public Humano( String nombre, int puntos) {
-		super(nombre);
-		puntos= this.puntos;
+		super(nombre,puntos);
 	}
 	static Scanner entrada = new Scanner(System.in);
 	
-	protected boolean responderMates() {
-		respuesta = entrada.next();
+	
+	@Override
+	boolean responderLengua(String resultado) {
 		return false;
 	}
-	protected boolean responderLengua() {
-		respuesta = entrada.next();
+	@Override
+	boolean responderIngles(String resultado) {
 		return false;
 	}
-	protected boolean responderIngles() {
+	@Override
+	boolean responderMates(String resultado) {
 		respuesta = entrada.next();
 		return false;
 	}

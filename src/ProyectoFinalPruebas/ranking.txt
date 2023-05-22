@@ -1,1 +1,9 @@
-Fernando 100000000000000000000
+Fernando 10000000
+Marce 20
+David 5
+Cesar 4
+Raul 4
+Marcos 3
+Nassim 2
+Sergio 1
+Lucas 0

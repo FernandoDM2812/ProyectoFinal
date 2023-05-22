@@ -4,7 +4,9 @@ import java.io.File;
 
 public class HistoricoRanking {
 
-	File file = new File("src/PoyectoFinalPruebas/");
+	File ranking = new File("src/PoyectoFinalPruebas/ranking.txt");
+	File historico = new File("src/PoyectoFinalPruebas/historico.txt");
+	
 	
 	
 }
