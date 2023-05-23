@@ -100,9 +100,15 @@ public class Preguntas {
 			}
 			return palabraOculta.toString();
 	}
-		public static void preguntaIngles() {
+		public static String preguntaIngles() {
 			        String preguntasIngles = "src/ProyectoFinalPruebas/ingles.txt";
-
+			        String resultado="";
+			        ArrayList<String> letras = new ArrayList();
+			        letras.add("A");
+			        letras.add("B");
+			        letras.add("C");
+			        letras.add("D");
+			        
 			        try (BufferedReader br = new BufferedReader(new FileReader(preguntasIngles))) {
 			            String linea;
 			            ArrayList<String> preguntas = new ArrayList<>();
@@ -125,19 +131,24 @@ public class Preguntas {
 			            int indicePreguntaAleatoria = (int) (Math.random() * preguntas.size());
 			            String preguntaAleatoria = preguntas.get(indicePreguntaAleatoria);
 			            ArrayList<String> respuestasPreguntaAleatoria = respuestas.get(indicePreguntaAleatoria);
-			            ArrayList<String> respuestasPreguntaAuxiliar = respuestas.get(indicePreguntaAleatoria);
+			            resultado=respuestasPreguntaAleatoria.get(0);
+			            ArrayList<String> respuestasConLetras = new ArrayList<String>();
+			            for (int i=0;i<letras.size();i++) {
+			            	respuestasConLetras.add(letras.get(i)+ " - " + respuestasPreguntaAleatoria.get(i));
+			            }
 			            
 			            // Imprimir la pregunta aleatoria y sus respuestas
 			            System.out.println(preguntaAleatoria);
-			            Collections.shuffle(respuestasPreguntaAleatoria);
-			            for (String respuesta : respuestasPreguntaAleatoria) {
-			                System.out.println("- " + respuesta);
+			            Collections.shuffle(respuestasConLetras);
+			            for (String respuesta : respuestasConLetras) {
+			                System.out.println(respuesta);
 			            }
 			        } catch (IOException e) {
 			            e.printStackTrace();
 			        }
+			        return resultado;
 			    }
-		public static void preguntaMates() {
+		public static String preguntaMates() {
 			        int numOperandos = new Random().nextInt(5) + 4; // número aleatorio de 4 a 8 operandos
 			        StringBuilder sb = new StringBuilder();
 			        String operador;
@@ -168,7 +179,9 @@ public class Preguntas {
 			        
 			        double resultado = resultadoOperacion(operacion);
 			        int resultadoEntero = (int) resultado;
-			        System.out.println("Resultado: " + resultadoEntero);
+			        String resultadoEscrito = String.valueOf(resultadoEntero);
+			        System.out.println(resultadoEscrito);
+			        return resultadoEscrito;
 			    }
 		public static double resultadoOperacion(String operacion) {
 			        String[] operandos = operacion.split("[+\\-]"); // Dividir en operandos por suma y resta

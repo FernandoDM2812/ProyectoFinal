@@ -3,17 +3,15 @@ package ProyectoFinalPruebas;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Principal {
 	
 	
 	public static void main(String[]args) throws IOException {
-		Preguntas.preguntaLengua();
 		Scanner entrada = new Scanner(System.in);
-		
 		boolean opcionCorrecta=false;
-		
 		System.out.println("Bienvenido a...");
 		System.out.println("¿Eres mas Listo que una Maquina? (0o0)");
 		
@@ -102,12 +100,13 @@ public class Principal {
 				listaJugador.add(jugadorCPU1);
 				numJugadores++;
 			}
+			
+			Collections.shuffle(listaJugador);
 			System.out.println("Jugadores que van a Jugar la Partida:");
 			for(int i=0;i<4;i++) {
 			Jugador player = (Jugador) listaJugador.get(i);
 				String nombre = player.getNombre();
 				System.out.println(nombre);
-			
 			}
 		}
 			while(!preguntas) {

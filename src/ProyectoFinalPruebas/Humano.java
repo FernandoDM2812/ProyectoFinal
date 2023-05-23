@@ -17,11 +17,21 @@ public class Humano extends Jugador{
 	}
 	@Override
 	boolean responderIngles(String resultado) {
-		return false;
+		String opcion="A";
+		String respuesta;
+		respuesta = entrada.next();
+		if(respuesta.equals(opcion)) {
+			System.out.println("La respuesta de " + nombre + " es: A");
+			return true;
+		}else {
+			System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+			System.out.println("La respuesta correcta era: "+resultado);
+			return false;
+		}
 	}
 	@Override
 	boolean responderMates(String resultado) {
-		respuesta = entrada.next();
+		String respuesta = entrada.next();
 		return false;
 	}
 }

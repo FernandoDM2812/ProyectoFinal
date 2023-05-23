@@ -91,6 +91,7 @@ public abstract class Jugador {
 		        } catch (IOException e) {
 		            System.out.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
 		        }
+			 HistoricoRanking.añadirJugador(jugador);
 			 leer.close();
 		}
 		
@@ -127,6 +128,8 @@ public abstract class Jugador {
 			            System.out.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
 			        }
 				 leer.close();
+				 HistoricoRanking.borrarJugadorRanking(jugador);
+				 HistoricoRanking.verRanking();
 			}
 			return false;
 			
