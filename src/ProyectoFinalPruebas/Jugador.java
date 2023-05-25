@@ -28,6 +28,12 @@ public abstract class Jugador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+	public int getPuntos() {
+		return puntos;
+	}
 	
 	abstract boolean responderMates(String resultado);
 	abstract boolean responderLengua(String resultado);

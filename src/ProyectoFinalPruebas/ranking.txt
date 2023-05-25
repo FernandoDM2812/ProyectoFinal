@@ -3,7 +3,7 @@ Marce 20
 David 10
 Cesar 5
 Raul 4
-Marcos 3 
+Marcos 4
 Nassim 2
 Sergio 1
 Lucas 0
