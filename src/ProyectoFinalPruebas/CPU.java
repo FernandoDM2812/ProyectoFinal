@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CPU extends Jugador{
-	int puntos;
 
 	public CPU( String nombre, int puntos) {
 		super(nombre,puntos);
@@ -16,7 +15,7 @@ public class CPU extends Jugador{
 	}
 	@Override
 	boolean responderLengua(String resultado) {
-		System.out.println("La respuesta de " + nombre + " es: " + resultado);
+		System.out.println("La respuesta de " + nombre + " es: " + resultado+"heuj");
 		return false;
 	}
 	@Override

@@ -109,17 +109,7 @@ public class HistoricoRanking {
 	    		}
 	    	}
 	    }
-	    
-//	    for(int i=0;i<rankingJugadores.size();i++) {
-//	    	Jugador jugador = rankingJugadores.get(i);
-//	    	for(int y = 0;y<rankingJugadores.size();y++) {
-//	    		Jugador aux = rankingJugadores.get(y);
-//	    		if(jugador.getPuntos()>aux.getPuntos()) {
-//	    			intercambiarJugadores(rankingJugadores, i, y);
-//	    		}		
-//	    	}
-//	    }
-	    
+	    	    
 	    Collections.sort(rankingJugadores, new Comparator<Jugador>() {
 	        public int compare(Jugador jugador1, Jugador jugador2) {
 	            return Integer.compare(jugador2.getPuntos(), jugador1.getPuntos());

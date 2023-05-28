@@ -1,6 +1,6 @@
-Fernando 1000000
+Fernando 1000005
 Marce 20
-David 10
+David 12
 Cesar 5
 Raul 4
 Marcos 4

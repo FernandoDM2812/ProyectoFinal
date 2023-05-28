@@ -1,37 +1,57 @@
 package ProyectoFinalPruebas;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Humano extends Jugador{
-	int puntos;
+	
+	private Scanner sc2 = new Scanner(System.in);
 	
 	public Humano( String nombre, int puntos) {
 		super(nombre,puntos);
 	}
-	static Scanner entrada = new Scanner(System.in);
-	
 	
 	@Override
-	boolean responderLengua(String resultado) {
-		return false;
-	}
-	@Override
-	boolean responderIngles(String resultado) {
-		String opcion="A";
-		String respuesta;
-		respuesta = entrada.next();
-		if(respuesta.equals(opcion)) {
-			System.out.println("La respuesta de " + nombre + " es: A");
-			return true;
-		}else {
-			System.out.println("La respuesta de " + nombre + " es: " + respuesta);
-			System.out.println("La respuesta correcta era: "+resultado);
-			return false;
+	boolean responderLengua(String resultado)throws NoSuchElementException{
+		String respuesta = sc2.nextLine();
+			if (respuesta.equals(resultado)) {
+				System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+				System.out.println("La respuesta es correcta: " + resultado);
+				return true;
+			} else {
+				System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+				System.out.println("La respuesta correcta era: " + resultado);
+				return false;
+			}
 		}
-	}
 	@Override
-	boolean responderMates(String resultado) {
-		String respuesta = entrada.next();
-		return false;
+	boolean responderIngles(String resultado) throws NoSuchElementException{
+		String opcion = "A";
+			String respuesta = sc2.nextLine();
+			if (respuesta.equals(opcion)) {
+				System.out.println("La respuesta de " + nombre + " es: A");
+				System.out.println("La respuesta es correcta: " + resultado);
+				return true;
+			} else {
+				System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+				System.out.println("La respuesta correcta era: " + resultado);
+				return false;
+				}
+		}
+	
+
+	@Override
+	boolean responderMates(String resultado) throws NoSuchElementException{
+			String respuesta = sc2.nextLine();
+			if (respuesta.equals(resultado)) {
+				System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+				System.out.println("La respuesta es correcta: " + resultado);
+				return true;
+			} else {
+				System.out.println("La respuesta de " + nombre + " es: " + respuesta);
+				System.out.println("La respuesta correcta era: " + resultado);
+				return false;
+			}
 	}
 }
+

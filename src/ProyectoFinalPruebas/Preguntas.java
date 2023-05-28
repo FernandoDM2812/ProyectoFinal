@@ -11,27 +11,37 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Preguntas {
-	  	  
-	public static void generarPreguntaAleatoria() throws FileNotFoundException {
-		int opcion = new Random().nextInt(3) + 1; // número aleatorio de 4 a 8 operandos
+	static int opcion;
+	
+	public static int getOpcion() {
+		return opcion;
+	}
+	public static String generarPreguntaAleatoria() throws FileNotFoundException {
+		String respuesta = "";
+		opcion = new Random().nextInt(3) + 1;
 		if (opcion == 1) {
-			preguntaLengua();
+			System.out.println("La pregunta sera de Lengua: ");
+			respuesta = preguntaLengua();
 		}else if(opcion == 2) {
-			preguntaIngles();
+			System.out.println("La pregunta sera de Ingles: ");
+			respuesta = preguntaIngles();
 		}else if(opcion == 3){
-			preguntaMates();
+			System.out.println("La pregunta sera de Mates: ");
+			respuesta = preguntaMates();
 		}
+		return respuesta;
 	}
 	
 	
-		public static void preguntaLengua() throws FileNotFoundException {
+		public static String preguntaLengua() throws FileNotFoundException {
 			  String palabra;
 			  File file = new File("src/ProyectoFinalPruebas/diccionario.txt");
 				Palabra(file);
 				palabra	 = Palabra(file);
 				palabra = tildesPalabra(palabra);
 				String palabraAuxiliar = ocultarLetras(palabra);
-				System.out.println(palabra + ":::" + palabraAuxiliar);
+				System.out.println("La palabra a resolver es: \n"+palabraAuxiliar);
+				return palabra;
 		  }
 		public static String Palabra(File file) throws FileNotFoundException{
 		        Scanner entrada = new Scanner(file);
@@ -102,7 +112,7 @@ public class Preguntas {
 	}
 		public static String preguntaIngles() {
 			        String preguntasIngles = "src/ProyectoFinalPruebas/ingles.txt";
-			        String resultado="";
+			        String resultado="A";
 			        ArrayList<String> letras = new ArrayList();
 			        letras.add("A");
 			        letras.add("B");
@@ -174,13 +184,12 @@ public class Preguntas {
 			        }
 
 			        String operacion = sb.toString();
-			        System.out.println("La Pregunta de Matematicas es: \n"+ operacion);
+			        System.out.println("La operacion a resolver es: \n"+ operacion);
 			        
 			        
 			        double resultado = resultadoOperacion(operacion);
 			        int resultadoEntero = (int) resultado;
 			        String resultadoEscrito = String.valueOf(resultadoEntero);
-			        System.out.println(resultadoEscrito);
 			        return resultadoEscrito;
 			    }
 		public static double resultadoOperacion(String operacion) {

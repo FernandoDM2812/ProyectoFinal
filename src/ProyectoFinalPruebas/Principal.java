@@ -1,15 +1,15 @@
 package ProyectoFinalPruebas;
 
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Principal {
 	
 	
-	public static void main(String[]args) throws IOException {
+	public static void main(String[]args) throws IOException {		
 		Scanner entrada = new Scanner(System.in);
 		boolean opcionCorrecta=false;
 		System.out.println("Bienvenido a...");
@@ -32,7 +32,6 @@ public class Principal {
 			respuesta=respuesta.toLowerCase();
 			if(respuesta.equals("1")) {
 				jugarPartida();
-				opcionCorrecta = true;
 			}else if (respuesta.equals("2")) {
 				HistoricoRanking.verRanking();
 			}else if (respuesta.equals("3")) {
@@ -46,7 +45,6 @@ public class Principal {
 				System.out.println("Por favor seleccione una opcion correcta");
 			}
 		}
-	entrada .close();
 	}
 	
 	 
@@ -57,7 +55,7 @@ public class Principal {
 		boolean jugadores = false;
 		boolean preguntas = false;
 		int partida=0;
-		int numJugadores;
+		int numJugadores=0;
 		
 		ArrayList<Object> listaCPU = new ArrayList<>();
 		CPU cpu1 = new CPU("CPU1", 0);
@@ -75,7 +73,8 @@ public class Principal {
 				System.out.println("-     Seleccione Numero de Jugadores     -");
 				System.out.println("------------------------------------------");
 	
-				numJugadores = entrada.nextInt();
+				String a = entrada.nextLine();
+				numJugadores = Integer.parseInt(a);
 				if(numJugadores<=4&&numJugadores>=0) {
 					jugadores=true;
 				}else {
@@ -83,7 +82,7 @@ public class Principal {
 				}
 				for(int i=0;i<numJugadores;i++) {
 					System.out.println("Seleccione Jugador");
-					String jugador = entrada.next();
+					String jugador = entrada.nextLine();
 					boolean verdad = Jugador.comprobarJugador(jugador);
 					if(!verdad) {
 						System.out.println("Jugador no existente");
@@ -93,11 +92,12 @@ public class Principal {
 						listaJugador.add(jugador1);
 					}
 				}
-			while(numJugadores<4) {
-				int indice = 3 - numJugadores;
+				int aux = numJugadores;
+			while(aux<4) {
+				int indice = 3 - aux;
 				CPU jugadorCPU1 = (CPU) listaCPU.get(indice);
 				listaJugador.add(jugadorCPU1);
-				numJugadores++;
+				aux++;
 			}
 			
 			Collections.shuffle(listaJugador);
@@ -128,8 +128,12 @@ public class Principal {
 				String duracion=sc.nextLine();
 				duracion=duracion.toLowerCase();
 				if(duracion.equals("entrenamiento")||duracion.equals("1")) {
+					if(numJugadores!=1) {
+						System.out.println("Solo un jugador puede jugar al entrenamiento");
+					}else {
 					partida=0;
 					preguntas=true;
+					}
 				}
 				if(duracion.equals("2")||duracion.equals("rapida")) {
 					partida=3;
@@ -145,7 +149,7 @@ public class Principal {
 					preguntas=true;
 				}else {
 					System.out.println("Introduzca una duracion permitida");
-				}sc.close();
+				};
 			}
 		System.out.println("**************************************************************");	
 		System.out.println("*********************Inicio De La Partida*********************");	
@@ -154,14 +158,19 @@ public class Principal {
 		if(partida>0) {
 			iniciarPartida(listaJugador,partida);
 		}else {
-			entrenamiento();
+			for(int i=0;i<listaJugador.size();i++) {
+			if(listaJugador.get(i)instanceof Humano) {
+				Jugador aux = (Jugador) listaJugador.get(i); 
+			entrenamiento(aux);
+			}
+			}
 		}
 		}
 	}
 	
 		  
 		  public static void menuJugadores() throws IOException   {
-			  Scanner entrada = new Scanner(System.in);
+			  Scanner sc = new Scanner(System.in);
 			  boolean menu=false;
 			  String respuesta;				
 				while(!menu) {
@@ -180,34 +189,189 @@ public class Principal {
 						System.out.println("******************************************");
 						System.out.println("******************************************");
 					
-					respuesta = entrada.nextLine().toLowerCase();
+					respuesta = sc.nextLine().toLowerCase();
 				    
 					if(respuesta.equals("1")) {
 						Jugador.verJugadores();
 					}else if (respuesta.equals("2")) {
 						System.out.println("Que Jugador Desea Añadir?");
-			            opcion = entrada.nextLine();
+			            opcion = sc.nextLine();
 						Jugador.añadirJugador(opcion);
 					}else if (respuesta.equals("3")) {
 						System.out.println("Que Jugador Desea Eliminar?");
-			            opcion = entrada.nextLine();
+			            opcion = sc.nextLine();
 						Jugador.borrarJugador(opcion);
 					}else if(respuesta.equals("4")) {
 						menu = true;
 					}
 				}
 		  }
-		  public static void iniciarPartida(ArrayList<Object> jugadoresPartida,int duracion) {
+		  public static void iniciarPartida(ArrayList<Object> jugadoresPartida,int duracion) throws IOException {
+			  Scanner entrada = new Scanner(System.in);
 			  duracion = duracion * 4;
+			  boolean respuesta; 
 			  Jugador jugador1 = (Jugador) jugadoresPartida.get(0);
 			  Jugador jugador2 = (Jugador) jugadoresPartida.get(1);
 			  Jugador jugador3 = (Jugador) jugadoresPartida.get(2);
 			  Jugador jugador4 = (Jugador) jugadoresPartida.get(3);
 			  for(int i=0;i<duracion;i++) {
+				  if(i%4==1) {
+					  System.out.println("Turno de " + jugador1.getNombre());
+				  }else if(i%4==2) {
+					  System.out.println("Turno de " + jugador2.getNombre());
+				  }else if(i%4==3) {
+					  System.out.println("Turno de " + jugador3.getNombre());
+				  }else{
+					  System.out.println("Turno de " + jugador4.getNombre());
+				  }
+				  String respuesta5 = Preguntas.generarPreguntaAleatoria();
+				  int opcion = Preguntas.getOpcion();
+				  if(i%4==1) {
+					  if (opcion==1) {
+						  respuesta = jugador1.responderLengua(respuesta5);
+						  if(respuesta==true) {
+							  jugador1.setPuntos(jugador1.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else if (opcion==2) {
+						  respuesta = jugador1.responderIngles(respuesta5);
+						  if(respuesta==true) {
+							  jugador1.setPuntos(jugador1.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else{
+						  respuesta = jugador1.responderMates(respuesta5);
+						  if(respuesta==true) {
+							  jugador1.setPuntos(jugador1.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }
+				  }else if(i%4==2) {
+					  if (opcion==1) {
+						  respuesta = jugador2.responderLengua(respuesta5);
+						  if(respuesta==true) {
+							  jugador2.setPuntos(jugador2.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else if (opcion==2) {
+						  respuesta = jugador2.responderIngles(respuesta5);
+						  if(respuesta==true) {
+							  jugador2.setPuntos(jugador2.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else{
+						  respuesta = jugador2.responderMates(respuesta5);
+						  if(respuesta==true) {
+							  jugador2.setPuntos(jugador2.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }
+				  }else if(i%4==3) {
+					  if (opcion==1) {
+						  respuesta = jugador3.responderLengua(respuesta5);
+						  if(respuesta==true) {
+							  jugador3.setPuntos(jugador3.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else if (opcion==2) {
+						  respuesta = jugador3.responderIngles(respuesta5);
+						  if(respuesta==true) {
+							  jugador3.setPuntos(jugador3.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else{
+						  respuesta = jugador3.responderMates(respuesta5);
+						  if(respuesta==true) {
+							  jugador3.setPuntos(jugador3.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }
+				  }else{
+					  if (opcion==1) {
+						  respuesta = jugador4.responderLengua(respuesta5);
+						  if(respuesta==true) {
+							  jugador4.setPuntos(jugador4.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else if (opcion==2) {
+						  respuesta = jugador4.responderIngles(respuesta5);
+						  if(respuesta==true) {
+							  jugador4.setPuntos(jugador4.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }else{
+						  respuesta = jugador4.responderMates(respuesta5);
+						  if(respuesta==true) {
+							  jugador4.setPuntos(jugador4.getPuntos()+1);
+						  }else {
+							 System.out.println("La Respuesta No es Correcta"); 
+						  }
+					  }
+				  }
 				  
 			  }
+			  System.out.println("La Partida ha terminado de la siguiente forma: " );
+			  System.out.println(jugador1.getNombre() + ": " + jugador1.getPuntos());
+			  System.out.println(jugador2.getNombre() + ": " + jugador2.getPuntos());
+			  System.out.println(jugador3.getNombre() + ": " + jugador3.getPuntos());
+			  System.out.println(jugador4.getNombre() + ": " + jugador4.getPuntos());
+			  String historico = (jugador1.getNombre()+ " " +jugador1.getPuntos()+ " " +jugador2.getNombre()+ " " +jugador2.getPuntos()+ " "+jugador3.getNombre()+ " " +jugador3.getPuntos()+ " "+jugador4.getNombre()+ " " +jugador4.getPuntos());
+			  ArrayList<Jugador> aux = new ArrayList<>();
+			  for(int i=0;i<jugadoresPartida.size();i++) {
+				  if(jugadoresPartida.get(i)instanceof Humano) {
+					  Jugador jugador = (Jugador) jugadoresPartida.get(i);
+					  aux.add(jugador);
+				  }
+			  }
+			  HistoricoRanking.actualizarHistorico(historico);
+			  HistoricoRanking.actualizarRanking(aux);
 		  }
-		  public static void entrenamiento() {
-			  
+		  
+		  public static void entrenamiento(Jugador jugador) throws FileNotFoundException {
+			  Scanner entrada = new Scanner(System.in);			  
+			  boolean aux = false;
+			  boolean respuesta;
+			  while(!aux) {
+				  String respuesta5 = Preguntas.generarPreguntaAleatoria();
+				  int opcion = Preguntas.getOpcion();
+				  if (opcion==1) {
+					  respuesta = jugador.responderLengua(respuesta5);
+					  if(respuesta==true) {
+						  jugador.setPuntos(jugador.getPuntos()+1);
+					  }else {
+						 System.out.println("La Respuesta No es Correcta"); 
+					  }
+				  }else if (opcion==2) {
+					  respuesta = jugador.responderIngles(respuesta5);
+					  if(respuesta==true) {
+						  jugador.setPuntos(jugador.getPuntos()+1);
+					  }else {
+						 System.out.println("La Respuesta No es Correcta"); 
+					  }
+				  }else{
+					  respuesta = jugador.responderMates(respuesta5);
+					  if(respuesta==true) {
+						  jugador.setPuntos(jugador.getPuntos()+1);
+					  }else {
+						 System.out.println("La Respuesta No es Correcta"); 
+					  }
+			}
+				  System.out.println("Desea Seguir Practicando?(Indique *No* en caso Contrario)");
+					String salir = entrada.nextLine().toLowerCase();
+					if(salir.equals("no")) {
+						aux=true;
+					}
 		  }
+	  }
 }
